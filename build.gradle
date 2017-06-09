@@ -1,0 +1,59 @@
+buildscript {
+    ext.kotlin_version = '1.1.2-2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'flavor.pie.promptsign' version '1.0.2'
+}
+
+group 'flavor.pie'
+version '1.0.0'
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spongepowered.org/maven/'
+    }
+    maven {
+        url 'https://jitpack.io/'
+    }
+}
+
+configurations {
+    compile.extendsFrom kapt
+    compile.extendsFrom shadow
+}
+
+dependencies {
+    shadow "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    kapt 'org.spongepowered:spongeapi:6.0.0'
+    shadow 'com.github.pie-flavor:Kludge:f0c9bac'
+}
+
+jar.enabled = false
+build.dependsOn shadowJar
+signArchives.dependsOn shadowJar
+
+shadowJar {
+    configurations = [project.configurations.compile]
+    classifier = null
+    relocate('kotlin', 'flavor.pie.itemchat.runtime.kotlin')
+    relocate('flavor.pie.kludge', 'flavor.pie.itemchat.util.kludge')
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
