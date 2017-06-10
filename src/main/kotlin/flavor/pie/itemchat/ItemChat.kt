@@ -24,7 +24,7 @@ import org.spongepowered.api.text.format.TextColors
 import java.io.BufferedReader
 import java.io.StringReader
 
-@[Plugin(id = "itemchat", name = "ItemChat", version = "1.0.0", authors = arrayOf("pie_flavor"))]
+@[Plugin(id = "itemchat", name = "ItemChat", version = "1.1.0", authors = arrayOf("pie_flavor"))]
 class ItemChat {
     object Queries {
         val unsafeDamage = DataQuery.of("Damage")!!
