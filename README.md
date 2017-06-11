@@ -17,7 +17,7 @@ hotbar slot.
 You can also display items that don't actually exist! Simply
 write the NBT tag after `item`, as you would in a `/give`
 command. For example, 
-`{item {id:"minecraft:redstone",display:{Name:"Weird Dust"}`
+`{item {id:"minecraft:redstone",display:{Name:"Weird Dust"}}}`
 would display redstone with a custom name of `Weird Dust`.
 Nonexistent items are colored differently from regular items.
 
