@@ -46,7 +46,7 @@ build.dependsOn shadowJar
 signArchives.dependsOn shadowJar
 
 shadowJar {
-    configurations = [project.configurations.compile]
+    configurations = [project.configurations.shadow]
     classifier = null
     relocate('kotlin', 'flavor.pie.itemchat.runtime.kotlin')
     relocate('flavor.pie.kludge', 'flavor.pie.itemchat.util.kludge')
