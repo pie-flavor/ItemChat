@@ -11,6 +11,7 @@ import org.spongepowered.api.data.type.HandTypes
 import org.spongepowered.api.entity.living.player.Player
 import org.spongepowered.api.event.Listener
 import org.spongepowered.api.event.filter.cause.First
+import org.spongepowered.api.event.game.state.GamePostInitializationEvent
 import org.spongepowered.api.event.message.MessageChannelEvent
 import org.spongepowered.api.item.ItemTypes
 import org.spongepowered.api.item.inventory.ItemStack
@@ -18,9 +19,12 @@ import org.spongepowered.api.item.inventory.ItemStackSnapshot
 import org.spongepowered.api.item.inventory.entity.Hotbar
 import org.spongepowered.api.item.inventory.property.SlotIndex
 import org.spongepowered.api.plugin.Plugin
+import org.spongepowered.api.service.permission.PermissionService
+import org.spongepowered.api.service.permission.SubjectData
 import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.action.TextActions
 import org.spongepowered.api.text.format.TextColors
+import org.spongepowered.api.util.Tristate
 import java.io.BufferedReader
 import java.io.StringReader
 
@@ -35,6 +39,16 @@ class ItemChat {
         val damage = DataQuery.of("Damage")!!
         val id = DataQuery.of("id")!!
         val tag = DataQuery.of("tag")!!
+    }
+
+    object Permissions {
+        val arbitraryNbt = "itemchat.arbitrary_nbt"
+    }
+
+    @[Listener]
+    fun postInit(e: GamePostInitializationEvent) {
+        val svc: PermissionService by UncheckedService
+        svc.defaults.transientSubjectData.setPermission(SubjectData.GLOBAL_CONTEXT, Permissions.arbitraryNbt, Tristate.TRUE)
     }
 
     @[Listener]
@@ -69,6 +83,10 @@ class ItemChat {
                 if (book == null) {
                     p.getItemInHand(HandTypes.MAIN_HAND).unwrap() ?: p.getItemInHand(HandTypes.OFF_HAND).unwrap() ?: return null
                 } else {
+                    if (!p.hasPermission(Permissions.arbitraryNbt)) {
+                        p.sendMessage(!"You don't have permission to create NBT item text!")
+                        return null
+                    }
                     if (bookslot == null) {
                         val bookStack = p.getItemInHand(HandTypes.MAIN_HAND).unwrap() ?: p.getItemInHand(HandTypes.OFF_HAND).unwrap() ?: return null
                         val text = bookStack[Keys.BOOK_PAGES].unwrap()?.map(Text::toPlain)?.joinToString(separator = "") ?: return null
@@ -114,6 +132,10 @@ class ItemChat {
                 p.inventory.query<Hotbar>(Hotbar::class.java).getSlot(SlotIndex(num - 1)).get().peek().unwrap() ?: return null
             }
         } else {
+            if (!p.hasPermission(Permissions.arbitraryNbt)) {
+                p.sendMessage(!"You don't have permission to create NBT item text!")
+                return null
+            }
             color1 = TextColors.LIGHT_PURPLE
             color2 = TextColors.DARK_PURPLE
             color3 = TextColors.DARK_AQUA
@@ -169,7 +191,7 @@ class ItemChat {
             Queries.itemType.let { if (it !in sData) sData[it] = ItemTypes.STONE.id }
             Queries.count.let { if (it !in sData) sData[it] = 1 }
             return sData.getSerializable(DataQuery.of(), ItemStackSnapshot::class.java).unwrap()?.createStack()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             return null
         }
     }
