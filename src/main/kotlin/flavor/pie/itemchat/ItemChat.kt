@@ -31,7 +31,7 @@ import java.io.StringReader
 @[Plugin(id = "itemchat", name = "ItemChat", version = "1.2.0", authors = arrayOf("pie_flavor"))]
 class ItemChat {
     object Queries {
-        val unsafeDamage = DataQuery.of("Damage")!!
+        val unsafeDamage = DataQuery.of("UnsafeDamage")!!
         val count = DataQuery.of("Count")!!
         val contentVersion = DataQuery.of("ContentVersion")!!
         val unsafeData = DataQuery.of("UnsafeData")!!
