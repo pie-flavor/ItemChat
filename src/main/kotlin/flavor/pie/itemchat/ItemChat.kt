@@ -17,7 +17,6 @@ import org.spongepowered.api.item.ItemTypes
 import org.spongepowered.api.item.inventory.ItemStack
 import org.spongepowered.api.item.inventory.ItemStackSnapshot
 import org.spongepowered.api.item.inventory.entity.Hotbar
-import org.spongepowered.api.item.inventory.property.SlotIndex
 import org.spongepowered.api.plugin.Plugin
 import org.spongepowered.api.service.permission.PermissionService
 import org.spongepowered.api.service.permission.SubjectData
@@ -28,7 +27,7 @@ import org.spongepowered.api.util.Tristate
 import java.io.BufferedReader
 import java.io.StringReader
 
-@[Plugin(id = "itemchat", name = "ItemChat", version = "1.2.1", authors = arrayOf("pie_flavor"))]
+@[Plugin(id = "itemchat", name = "ItemChat", version = "1.2.1", authors = ["pie_flavor"])]
 class ItemChat {
     object Queries {
         val unsafeDamage = DataQuery.of("UnsafeDamage")!!
@@ -89,7 +88,7 @@ class ItemChat {
                     }
                     if (bookslot == null) {
                         val bookStack = p.getItemInHand(HandTypes.MAIN_HAND).unwrap() ?: p.getItemInHand(HandTypes.OFF_HAND).unwrap() ?: return null
-                        val text = bookStack[Keys.BOOK_PAGES].unwrap()?.map(Text::toPlain)?.joinToString(separator = "") ?: return null
+                        val text = bookStack[Keys.BOOK_PAGES].unwrap()?.joinToString(separator = "", transform = Text::toPlain) ?: return null
                         parseItem(text) ?: return run {
                             p.sendMessage(!"Invalid NBT!")
                             null
@@ -108,8 +107,8 @@ class ItemChat {
                             p.sendMessage(!"Invalid index!")
                             return null
                         }
-                        val bookStack = p.inventory.query<Hotbar>(Hotbar::class.java).getSlot(SlotIndex(num - 1)).get().peek().unwrap() ?: return null
-                        val text = bookStack[Keys.BOOK_PAGES].unwrap()?.map(Text::toPlain)?.joinToString(separator = "") ?: return null
+                        val bookStack = p.inventory[Hotbar::class][num - 1]!!.peek().unwrap() ?: return null
+                        val text = bookStack[Keys.BOOK_PAGES].unwrap()?.joinToString(separator = "", transform = Text::toPlain) ?: return null
                         parseItem(text) ?: return run {
                             p.sendMessage(!"Invalid NBT!")
                             null
@@ -129,7 +128,7 @@ class ItemChat {
                         return null
                     }
                 }
-                p.inventory.query<Hotbar>(Hotbar::class.java).getSlot(SlotIndex(num - 1)).get().peek().unwrap() ?: return null
+                p.inventory[Hotbar::class][num - 1]!!.peek().unwrap() ?: return null
             }
         } else {
             if (!p.hasPermission(Permissions.arbitraryNbt)) {
