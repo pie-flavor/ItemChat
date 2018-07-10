@@ -30,14 +30,14 @@ import java.io.StringReader
 @[Plugin(id = "itemchat", name = "ItemChat", version = "1.3.0-SNAPSHOT", authors = ["pie_flavor"])]
 class ItemChat {
     object Queries {
-        val unsafeDamage = DataQuery.of("UnsafeDamage")!!
-        val count = DataQuery.of("Count")!!
-        val contentVersion = DataQuery.of("ContentVersion")!!
-        val unsafeData = DataQuery.of("UnsafeData")!!
-        val itemType = DataQuery.of("ItemType")!!
-        val damage = DataQuery.of("Damage")!!
-        val id = DataQuery.of("id")!!
-        val tag = DataQuery.of("tag")!!
+        val unsafeDamage: DataQuery = DataQuery.of("UnsafeDamage")
+        val count: DataQuery = DataQuery.of("Count")
+        val contentVersion: DataQuery = DataQuery.of("ContentVersion")
+        val unsafeData: DataQuery = DataQuery.of("UnsafeData")
+        val itemType: DataQuery = DataQuery.of("ItemType")
+        val damage: DataQuery = DataQuery.of("Damage")
+        val id: DataQuery = DataQuery.of("id")
+        val tag: DataQuery = DataQuery.of("tag")
     }
 
     object Permissions {
