@@ -38,7 +38,7 @@ configurations {
 dependencies {
     shadow "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     kapt 'org.spongepowered:spongeapi:7.0.0'
-    shadow 'com.github.pie-flavor:Kludge:caa38e9'
+    shadow 'com.github.pie-flavor:Kludge:1918cb5'
 }
 
 jar.enabled = false
