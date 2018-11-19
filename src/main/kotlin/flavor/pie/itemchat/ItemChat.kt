@@ -42,7 +42,7 @@ import java.nio.file.Path
 typealias Expander = (ItemStack) -> Text?
 internal lateinit var config: Config
 
-@Plugin(id = "itemchat", name = "ItemChat", version = "1.4.1-SNAPSHOT", authors = ["pie_flavor"], description = "Allows you to display your item in chat.")
+@Plugin(id = "itemchat", name = "ItemChat", version = "1.4.2-SNAPSHOT", authors = ["pie_flavor"], description = "Allows you to display your item in chat.")
 class ItemChat @Inject constructor(@DefaultConfig(sharedRoot = true) val path: Path,
                                    @DefaultConfig(sharedRoot = true) val loader: ConfigurationLoader<CommentedConfigurationNode>,
                                    val metrics: MetricsLite2) {
