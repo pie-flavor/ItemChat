@@ -6,7 +6,7 @@ import flavor.pie.kludge.*
 import ninja.leaping.configurate.commented.CommentedConfigurationNode
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader
 import ninja.leaping.configurate.loader.ConfigurationLoader
-import org.bstats.sponge.MetricsLite
+import org.bstats.sponge.MetricsLite2
 import org.intellij.lang.annotations.Language
 import org.spongepowered.api.config.DefaultConfig
 import org.spongepowered.api.data.DataContainer
@@ -45,7 +45,7 @@ internal lateinit var config: Config
 @Plugin(id = "itemchat", name = "ItemChat", version = "1.4.0-SNAPSHOT", authors = ["pie_flavor"], description = "Allows you to display your item in chat.")
 class ItemChat @Inject constructor(@DefaultConfig(sharedRoot = true) val path: Path,
                                    @DefaultConfig(sharedRoot = true) val loader: ConfigurationLoader<CommentedConfigurationNode>,
-                                   val metrics: MetricsLite) {
+                                   val metrics: MetricsLite2) {
 
     val expanders: MutableMap<String, Expander> = mutableMapOf(
             "nbt" to { item -> toNBT(item)?.let { DataFormats.JSON.write(it).text() } },

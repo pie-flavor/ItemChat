@@ -29,7 +29,7 @@ repositories {
         url 'https://jitpack.io/'
     }
     maven {
-        url 'https://repo.bstats.org/content/repositories/releases/'
+        url 'https://repo.codemc.org/repository/maven-public'
     }
 }
 
@@ -40,9 +40,9 @@ configurations {
 
 dependencies {
     shadow "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    kapt 'org.spongepowered:spongeapi:7.0.0'
+    kapt 'org.spongepowered:spongeapi:7.1.0'
     shadow 'com.github.pie-flavor:Kludge:1918cb5'
-    shadow 'org.bstats:bstats-sponge-lite:1.2'
+    shadow 'org.bstats:bstats-sponge-lite:1.4'
 }
 
 jar.enabled = false
