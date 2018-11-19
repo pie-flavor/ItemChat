@@ -84,7 +84,7 @@ class ItemChat @Inject constructor(@DefaultConfig(sharedRoot = true) val path: P
         if (!Files.exists(path)) {
             AssetManager.getAsset(this, "default.conf").get().copyToFile(path)
         }
-        config = loader.load().getValue(Config.type)
+        config = loader.load().getValue(Config.type)!!
     }
 
     @Listener
