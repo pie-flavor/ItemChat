@@ -54,7 +54,6 @@ shadowJar {
     classifier = null
     relocate('kotlin', 'flavor.pie.itemchat.runtime.kotlin')
     relocate('flavor.pie.kludge', 'flavor.pie.itemchat.util.kludge')
-    relocate('org.bstats.sponge', 'flavor.pie.itemchat.metrics')
 }
 
 compileKotlin {
